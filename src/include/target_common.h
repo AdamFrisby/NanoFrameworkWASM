@@ -1,0 +1,8 @@
+#ifndef TARGET_COMMON_H
+#define TARGET_COMMON_H
+
+#define TARGETNAMESTRING "NanoFrameworkWASM"
+#define PLATFORMNAMESTRING NANOCLR_PLATFORM_NAME
+#define OEMSYSTEMINFOSTRING "nanoCLR running as a WASI reactor"
+
+#endif

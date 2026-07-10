@@ -1,0 +1,101 @@
+set(NF "${NF_INTERPRETER_SOURCE_DIR}")
+
+set(NANOCLR_SHARED_SOURCES
+    ${NF}/src/CLR/Core/Cache.cpp
+    ${NF}/src/CLR/Core/Checks.cpp
+    ${NF}/src/CLR/Core/CLR_RT_DblLinkedList.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapBlock.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapBlock_Array.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapBlock_ArrayList.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapBlock_BinaryBlob.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapBlock_Delegate.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapBlock_Delegate_List.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapBlock_Finalizer.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapBlock_Lock.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapBlock_LockRequest.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapBlock_Node.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapBlock_Queue.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapBlock_Stack.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapBlock_String.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapBlock_Timer.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapBlock_WaitForObject.cpp
+    ${NF}/src/CLR/Core/CLR_RT_HeapCluster.cpp
+    ${NF}/src/CLR/Core/CLR_RT_Interop.cpp
+    ${NF}/src/CLR/Core/CLR_RT_Memory.cpp
+    ${NF}/src/CLR/Core/CLR_RT_ObjectToEvent_Destination.cpp
+    ${NF}/src/CLR/Core/CLR_RT_ObjectToEvent_Source.cpp
+    ${NF}/src/CLR/Core/CLR_RT_RuntimeMemory.cpp
+    ${NF}/src/CLR/Core/CLR_RT_StackFrame.cpp
+    ${NF}/src/CLR/Core/CLR_RT_SystemAssembliesTable.cpp
+    ${NF}/src/CLR/Core/CLR_RT_UnicodeHelper.cpp
+    ${NF}/src/CLR/Core/Core.cpp
+    ${NF}/src/CLR/Core/Execution.cpp
+    ${NF}/src/CLR/Core/GarbageCollector.cpp
+    ${NF}/src/CLR/Core/GarbageCollector_Compaction.cpp
+    ${NF}/src/CLR/Core/GarbageCollector_ComputeReachabilityGraph.cpp
+    ${NF}/src/CLR/Core/GarbageCollector_Info.cpp
+    ${NF}/src/CLR/Core/Interpreter.cpp
+    ${NF}/src/CLR/Core/Random.cpp
+    ${NF}/src/CLR/Core/Streams.cpp
+    ${NF}/src/CLR/Core/StringTable.cpp
+    ${NF}/src/CLR/Core/StringTableData.cpp
+    ${NF}/src/CLR/Core/Thread.cpp
+    ${NF}/src/CLR/Core/TypeSystem.cpp
+    ${NF}/src/CLR/Core/TypeSystemLookup.cpp
+    ${NF}/src/CLR/Core/Various.cpp
+    ${NF}/src/CLR/Core/Hardware/Hardware.cpp
+    ${NF}/src/CLR/Core/InterruptHandler/InterruptHandler.cpp
+    ${NF}/src/CLR/Core/NativeEventDispatcher/NativeEventDispatcher_stub.cpp
+    ${NF}/src/CLR/Core/RPC/RPC_stub.cpp
+    ${NF}/src/CLR/Core/nanoSupport_CRC32.c
+    ${NF}/src/HAL/nanoHAL_SystemInformation.cpp
+    ${NF}/src/CLR/Debugger/Debugger_stub.cpp
+    ${NF}/src/CLR/Messaging/Messaging_stub.cpp
+    ${NF}/src/CLR/Diagnostics/Info_Safeprintf.cpp
+    ${NF}/src/CLR/Diagnostics/Diagnostics_stub.cpp
+    ${NF}/src/CLR/Core/Serialization/BinaryFormatter_stub.cpp
+    ${NF}/src/CLR/Helpers/nanoprintf/nanoprintf.c
+    ${NF}/src/CLR/Helpers/NanoRingBuffer/nanoRingBuffer.c
+    ${NF}/src/CLR/Helpers/Base64/base64.c
+    ${NF}/src/nanoFramework.Runtime.Native/nf_rt_native.cpp
+    ${NF}/src/nanoFramework.Runtime.Native/nf_rt_native_nanoFramework_Runtime_Hardware_SystemInfo.cpp
+    ${NF}/src/nanoFramework.Runtime.Native/nf_rt_native_nanoFramework_Runtime_Native_GC.cpp
+    ${NF}/src/nanoFramework.Runtime.Native/nf_rt_native_nanoFramework_Runtime_Native_ExecutionConstraint.cpp
+    ${NF}/src/nanoFramework.Runtime.Native/nf_rt_native_nanoFramework_Runtime_Native_Power.cpp
+    ${NF}/src/nanoFramework.Runtime.Native/nf_rt_native_nanoFramework_Runtime_Native_Rtc_stubs.cpp
+    ${NF}/src/nanoFramework.Runtime.Native/nf_rt_native_System_Environment.cpp
+    ${NF}/src/HAL/nanoHAL_Time.cpp
+    ${NF}/src/HAL/nanoHAL_Watchdog.c
+    ${NF}/src/HAL/nanoHAL_SystemEvents.c
+    ${NF}/src/PAL/AsyncProcCall/AsyncCompletions.cpp
+    ${NF}/src/PAL/AsyncProcCall/AsyncContinuations.cpp
+    ${NF}/src/PAL/COM/COM_stubs.c
+    ${NF}/src/PAL/COM/GenericPort_stubs.c
+    ${NF}/src/PAL/Double/nanoPAL_NativeDouble.cpp
+    ${NF}/src/PAL/FileSystem/nanoPAL_FileSystem_stubs.cpp
+    ${NF}/src/PAL/Profiler/nanoPAL_PerformanceCounters_stubs.cpp
+    ${NF}/src/PAL/nanoPAL_Network_stubs.cpp
+    ${NF}/targets/posix/nanoCLR/CLRStartup.cpp
+    ${NF}/targets/posix/nanoCLR/nanoCLR_native_posix.cpp
+    ${NF}/targets/posix/nanoCLR/Target_BlockStorage.cpp
+    ${NF}/targets/posix/nanoCLR/WatchDog.cpp
+)
+
+file(GLOB NANOCLR_CORLIB_SOURCES CONFIGURE_DEPENDS ${NF}/src/CLR/CorLib/*.cpp)
+if(NOT NANOCLR_WASM_ENABLE_REFLECTION)
+    list(FILTER NANOCLR_CORLIB_SOURCES EXCLUDE REGEX
+        "corlib_native_System_(Reflection_(Assembly|ConstructorInfo|FieldInfo|MethodBase|PropertyInfo|RuntimeFieldInfo|RuntimeMethodInfo)|RuntimeType|Type)\\.cpp$"
+    )
+endif()
+list(APPEND NANOCLR_SHARED_SOURCES ${NANOCLR_CORLIB_SOURCES})
+
+set(NANOCLR_WASI_SOURCES
+    ${CMAKE_CURRENT_LIST_DIR}/../src/api.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../src/cxxabi.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../src/diagnostics.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../src/events.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../src/hal.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../src/interop.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../src/memory.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../src/time.cpp
+)

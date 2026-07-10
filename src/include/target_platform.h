@@ -1,0 +1,7 @@
+#ifndef TARGET_PLATFORM_H
+#define TARGET_PLATFORM_H
+
+#define PLATFORM_POSIX_HOST 1
+#define PLATFORM_WASI 1
+
+#endif

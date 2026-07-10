@@ -1,0 +1,27 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "wasi-min-size",
+      "displayName": "WASI Preview 1 (minimum size)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/wasi",
+      "toolchainFile": "${sourceDir}/cmake/toolchain-wasi.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "MinSizeRel"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "wasi-min-size",
+      "configurePreset": "wasi-min-size"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "wasi-min-size",
+      "configurePreset": "wasi-min-size"
+    }
+  ]
+}

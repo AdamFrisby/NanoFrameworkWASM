@@ -1,0 +1,48 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  wasi:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            cmake ninja-build curl unzip clang-18 lld-18 \
+            wasi-libc libc++-18-dev-wasm32 libc++abi-18-dev-wasm32 \
+            libclang-rt-18-dev-wasm32 binaryen wabt nodejs
+
+      - name: Configure
+        run: |
+          bash scripts/fetch-test-pes.sh build/test-pes
+          cmake --preset wasi-min-size -DNANOCLR_TEST_PE_DIR="$PWD/build/test-pes"
+
+      - name: Build
+        run: cmake --build --preset wasi-min-size --parallel 4
+
+      - name: Test
+        run: ctest --preset wasi-min-size --output-on-failure
+
+      - name: Inspect artifact
+        run: |
+          wasm-validate build/wasi/nanoframework.wasm
+          wasm-opt -Oz build/wasi/nanoframework.wasm -o build/wasi/nanoframework.opt.wasm
+          ls -lh build/wasi/nanoframework*.wasm
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nanoframework-wasi
+          path: build/wasi/nanoframework*.wasm
