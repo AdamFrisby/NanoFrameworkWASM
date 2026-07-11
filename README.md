@@ -18,7 +18,11 @@ This repository currently provides a buildable runtime proof of concept:
 
 With Clang 21, the current minimum-size build is 150,905 bytes before the optional `wasm-opt -Oz` pass and 150,776 bytes afterwards. It declares six 64 KiB initial memory pages and a 16 MiB maximum. Loading and resolving the two test PEs grows linear memory to seven pages. These are development measurements, not a stable size guarantee.
 
-Managed application execution still needs an end-to-end fixture with a C# entry point. The current smoke test validates the native reactor ABI and framework loader but does not yet execute a C# program.
+Managed application execution is now proven end-to-end: `scripts/run-end-to-end.sh` compiles a C# fixture to a nanoFramework PE headlessly (`scripts/build-app-pe.sh`) and executes its `Main()` under the WASI reactor (`tests/run-app.mjs`), asserting the `Ready.`/`Done.` lifecycle with no "Cannot find any entrypoint!". A diagnostic build (`-DNANOCLR_WASM_ENABLE_TRACE=ON`) surfaces nanoCLR output on WASI stdout; the default RTM build stays silent.
+
+### Headless C# → PE
+
+No Visual Studio or project system is required. `csc` compiles the C# against the CoreLibrary reference assembly (`/nostdlib`) to a plain managed `.dll`, then the nanoFramework MetadataProcessor MSBuild task is invoked directly via a minimal `<UsingTask>` project to emit the PE. The processor is pinned to `3.0.100`, which emits the v1 (`NFMRK1`) PE format this interpreter reads; `4.0.x` emits `NFMRK2` and is rejected.
 
 ## Architecture
 

@@ -81,7 +81,9 @@ target_include_directories(
 target_compile_definitions(
     nanoframework_wasm
     PRIVATE
-        BUILD_RTM=1
+        # RTM (silent) by default; a trace build compiles the nanoCLR diagnostics IN so startup/execution/entrypoint
+        # messages reach WASI stdout (otherwise BUILD_RTM strips every CLR_Debug::Printf regardless of the trace flag).
+        $<$<NOT:$<BOOL:${NANOCLR_WASM_ENABLE_TRACE}>>:BUILD_RTM=1>
         CONFIG_NF_FEATURE_SUPPORT_REFLECTION=$<BOOL:${NANOCLR_WASM_ENABLE_REFLECTION}>
         PLATFORM_POSIX_HOST=1
         PLATFORM_WASI=1

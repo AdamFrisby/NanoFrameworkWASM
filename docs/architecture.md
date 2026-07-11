@@ -59,7 +59,7 @@ World APIs should use a new nanoFramework managed library plus native method tab
 
 ## Known Gaps
 
-- CI loads and resolves matching framework PEs, but it does not yet execute an application entry point.
+- An application entry point now executes end-to-end (`scripts/run-end-to-end.sh`, headless C#→PE→run); CI can gate on it.
 - ABI version 1 supports one application run per instance and no reset.
 - No host world native assembly exists yet.
 - No debugger transport, profiler transport, networking, TLS, or managed filesystem.
