@@ -58,6 +58,7 @@ target_include_directories(
     PRIVATE
         ${CMAKE_CURRENT_BINARY_DIR}/generated/include
         ${CMAKE_CURRENT_SOURCE_DIR}/src/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/interop/Space
         ${NF_INTERPRETER_SOURCE_DIR}/targets/posix/Include
         ${NF_INTERPRETER_SOURCE_DIR}/targets/posix/nanoCLR
         ${NF_INTERPRETER_SOURCE_DIR}/src/CLR/Include
