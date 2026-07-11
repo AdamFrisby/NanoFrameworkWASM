@@ -5,12 +5,10 @@
 
 extern const CLR_RT_NativeAssemblyData g_CLR_AssemblyNative_mscorlib;
 extern const CLR_RT_NativeAssemblyData g_CLR_AssemblyNative_nanoFramework_Runtime_Native;
-extern const CLR_RT_NativeAssemblyData g_CLR_AssemblyNative_Sinespace_Space;
 
 const CLR_RT_NativeAssemblyData *g_CLR_InteropAssembliesNativeData[] = {
     &g_CLR_AssemblyNative_mscorlib,
     &g_CLR_AssemblyNative_nanoFramework_Runtime_Native,
-    &g_CLR_AssemblyNative_Sinespace_Space, // Sinespace world API (host-backed native methods)
     nullptr,
 };
 

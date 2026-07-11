@@ -98,8 +98,4 @@ set(NANOCLR_WASI_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/../src/interop.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/memory.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/time.cpp
-    # Sinespace world API — native (host-backed) methods for the Space.* managed assembly.
-    ${CMAKE_CURRENT_LIST_DIR}/../src/interop/Space/Sinespace_Space.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/../src/interop/Space/Sinespace_Space_Sinespace_Space.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/../src/interop/Space/Sinespace_Space_Sinespace_Space_mshl.cpp
 )

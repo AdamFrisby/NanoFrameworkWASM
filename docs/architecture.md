@@ -61,8 +61,6 @@ World APIs should use a new nanoFramework managed library plus native method tab
 
 - An application entry point now executes end-to-end (`scripts/run-end-to-end.sh`, headless C#→PE→run); CI can gate on it.
 - ABI version 1 supports one application run per instance and no reset.
-- A first host world native assembly exists (`src/interop/Space`, the `Sinespace.Space` managed stub +
-  native methods, registered in the interop table). It proves the managed→native→host path
-  (`Space.HostReport`); the full Space.* surface + a dedicated object-id host-import namespace are in progress.
+- No host world native assembly exists yet.
 - No debugger transport, profiler transport, networking, TLS, or managed filesystem.
 - The current in-memory loader copies PE data into libc-managed containers before nanoCLR links it.
